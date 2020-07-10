@@ -18,7 +18,7 @@ services:
       - backend
       
   app:
-    image: sergeyl4v/test-bricsys-devops
+    image: sergeyl4v/test-bricsys-devops:latest
     environment:
       MYSQL_DATABASE_DB: "testBricsysDevOps"
       MYSQL_DATABASE_USER: "testBricsysDevOps"
