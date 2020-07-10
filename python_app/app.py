@@ -54,7 +54,7 @@ def mysqlInsertPointWithoutCommit(testId, buildId, slowdownOrSpeedup, prevTestId
         cursor.execute("INSERT INTO `testresults_points` VALUES (%s, %s, %s, %s)", (testId, buildId, slowdownOrSpeedup, prevTestId))       
 
 def findPoints():
-    limitSlowdownOrSpeedup = 80
+    limitSlowdownOrSpeedup = int(os.getenv('LIMIT_SLOWDOWN_OR_SPEEDUP', '50'))
     logging.info('Calculate slowdown or speed up points (limit {}%)'.format(limitSlowdownOrSpeedup))
     with connection.cursor() as cursor:
         cursor.execute("SELECT `testid`, `buildid`, `duration`, `status`  FROM `testresults` ORDER BY buildid, testid DESC")

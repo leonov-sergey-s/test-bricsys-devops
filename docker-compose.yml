@@ -24,6 +24,7 @@ services:
       MYSQL_DATABASE_USER: "testBricsysDevOps"
       MYSQL_DATABASE_PASSWORD: "testSecurePassword"
       MYSQL_DATABASE_HOST: "db"
+      LIMIT_SLOWDOWN_OR_SPEEDUP: 80
     ports:
       - 5000:5000
     volumes:
