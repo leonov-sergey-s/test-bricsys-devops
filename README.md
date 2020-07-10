@@ -9,7 +9,7 @@ Install Git using manuals:
 Clone this project from GitHub.
 
 ```
-https://github.com/leonov-sergey-s/test-bricsys-devops ~/test-bricsys-devops
+git clone https://github.com/leonov-sergey-s/test-bricsys-devops ~/test-bricsys-devops
 ```
 
 ## Install Docker
