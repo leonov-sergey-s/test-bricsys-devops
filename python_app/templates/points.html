@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Slowdown or speed up points</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Slowdown or speed up points</h1>
+
+    <div class="list-group">
+      {% for r in results %}
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">
+            {{r.buildid}}
+            {% if r.slowdownOrSpeedup > 0 %}
+            <span class="badge badge-success badge-pill">&uarr; {{r.slowdownOrSpeedup}}%</span>
+            {% else %}
+            <span class="badge badge-danger badge-pill">&darr; {{r.slowdownOrSpeedup}}%</span>
+            {% endif %}
+          </h5>
+          <small>{{r.name}}</small>
+        </div>
+        <div class="mb-1">
+            <ul class="list-inline" style="margin-bottom:0">
+              <li class="list-inline-item">Current test ID: <i>{{r.testid}}</i></li>
+              <li class="list-inline-item">Duration: <i>{{r.testDuration}} sec</i></li>
+              <li class="list-inline-item">
+                {% if r.testStatus == 'success' %}
+                <span class="badge badge-success">{{r.testStatus}}</span>
+                {% else %}
+                <span class="badge badge-danger">{{r.testStatus}}</span>
+                {% endif %}
+              </li>
+            </ul>
+            <ul class="list-inline">
+              <li class="list-inline-item">Previous test ID: <i>{{r.prevTestId}}</i></li>
+              <li class="list-inline-item">Duration: <i>{{r.prevTestDuration}} sec</i></li>
+              <li class="list-inline-item">
+                {% if r.prevTestStatus == 'success' %}
+                <span class="badge badge-success">{{r.prevTestStatus}}</span>
+                {% else %}
+                <span class="badge badge-danger">{{r.prevTestStatus}}</span>
+                {% endif %}
+              </li>
+            </ul>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+</div>
+</body>
+</html>
