@@ -18,17 +18,19 @@ services:
       - backend
       
   app:
-    image: sergeyl4v/test-bricsys-devops:latest
+#    image: sergeyl4v/test-bricsys-devops:latest
+    image: flaskimage
     environment:
       MYSQL_DATABASE_DB: "testBricsysDevOps"
       MYSQL_DATABASE_USER: "testBricsysDevOps"
       MYSQL_DATABASE_PASSWORD: "testSecurePassword"
       MYSQL_DATABASE_HOST: "db"
-      LIMIT_SLOWDOWN_OR_SPEEDUP: 80
+      LIMIT_SLOWDOWN_OR_SPEEDUP: 30
     ports:
       - 5000:5000
     volumes:
       - ./txt_files:/opt/app/txt_files/origin:ro
+      - ./python_app/app.py:/opt/app/app.py:ro
     depends_on:
       - db
     networks:

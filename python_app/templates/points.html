@@ -5,55 +5,57 @@
     <title>Slowdown or speed up points</title>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-
 </head>
 <body>
 <div class="container">
-    <h1>Slowdown or speed up points</h1>
-
-    <div class="list-group">
-      {% for r in results %}
+    <h1>Slowdown or speed up points (limit={{limitSlowdownOrSpeedup}}%)</h1>
+    {% for rows in results %}
+    <h2 style="margin: 10px 0">{{rows[0].point.reportId}}</h2>
+    <img src="/static/images/{{rows[0].point.reportId}}.png" alt="" />
+    <div class="list-group" style="margin: 10px 0">
+      {% for r in rows %}
       <div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">
-            {{r.buildid}}
+            {{r.point.buildid}}
             {% if r.slowdownOrSpeedup > 0 %}
-            <span class="badge badge-success badge-pill">&uarr; {{r.slowdownOrSpeedup}}%</span>
+            <span class="badge badge-success badge-pill">&uarr; {{'%0.2f'|format(r.slowdownOrSpeedup)}}%</span>
             {% else %}
-            <span class="badge badge-danger badge-pill">&darr; {{r.slowdownOrSpeedup}}%</span>
+            <span class="badge badge-danger badge-pill">&darr; {{'%0.2f'|format(r.slowdownOrSpeedup)}}%</span>
             {% endif %}
           </h5>
-          <small>{{r.name}}</small>
+          <small>{{r.point.create_time}}</small>
         </div>
         <div class="mb-1">
             <ul class="list-inline" style="margin-bottom:0">
-              <li class="list-inline-item">Current test ID: <i>{{r.testid}}</i></li>
-              <li class="list-inline-item">Duration: <i>{{r.testDuration}} sec</i></li>
+              <li class="list-inline-item">Previous test ID: <i>{{r.prev.buildid}}</i></li>
+              <li class="list-inline-item">Duration: <i>{{r.prev.duration}} sec</i></li>
+              <li class="list-inline-item">Name: <i>{{r.prev['name']}}</i></li>
               <li class="list-inline-item">
-                {% if r.testStatus == 'success' %}
-                <span class="badge badge-success">{{r.testStatus}}</span>
+                {% if r.prev.status == 'success' %}
+                <span class="badge badge-success">{{r.prev.status}}</span>
                 {% else %}
-                <span class="badge badge-danger">{{r.testStatus}}</span>
+                <span class="badge badge-danger">{{r.prev.status}}</span>
                 {% endif %}
               </li>
             </ul>
             <ul class="list-inline">
-              <li class="list-inline-item">Previous test ID: <i>{{r.prevTestId}}</i></li>
-              <li class="list-inline-item">Duration: <i>{{r.prevTestDuration}} sec</i></li>
+              <li class="list-inline-item">Current test ID: <i>{{r.point.buildid}}</i></li>
+              <li class="list-inline-item">Duration: <i>{{r.point.duration}} sec</i></li>
+              <li class="list-inline-item">Name: <i>{{r.point['name']}}</i></li>
               <li class="list-inline-item">
-                {% if r.prevTestStatus == 'success' %}
-                <span class="badge badge-success">{{r.prevTestStatus}}</span>
+                {% if r.point.status == 'success' %}
+                <span class="badge badge-success">{{r.point.status}}</span>
                 {% else %}
-                <span class="badge badge-danger">{{r.prevTestStatus}}</span>
+                <span class="badge badge-danger">{{r.point.status}}</span>
                 {% endif %}
               </li>
             </ul>
         </div>
       </div>
       {% endfor %}
-    </div>
-
+  </div>
+  {% endfor %}
 </div>
 </body>
 </html>

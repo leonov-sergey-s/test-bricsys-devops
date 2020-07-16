@@ -4,4 +4,5 @@ Dockerfile
 .gitkeep
 .cache
 venv
+env
 txt_files/normalized/*
